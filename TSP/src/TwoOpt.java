@@ -11,7 +11,7 @@ public class TwoOpt {
 	 * @param path
 	 * @param distanceMatrix
 	 */
-	public TwoOpt(int[] path, int[][] distanceMatrix) {
+	public TwoOpt(int[] path, int[][] distanceMatrix, final boolean firstImprovement) {
 		this.distanceMatrix = distanceMatrix;
 		this.path = path;
 		
@@ -30,8 +30,14 @@ public class TwoOpt {
 							bestGain = gain;
 							bestI = i;
 							bestJ = j;
+							if(firstImprovement == true) {
+								break;
+							}
 						}
 					}
+				}
+				if(bestGain < 0 && firstImprovement == true) {
+					break;
 				}
 			}
 			
