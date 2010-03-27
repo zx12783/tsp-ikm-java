@@ -54,4 +54,13 @@ public class Tool {
 		}
 		return false;
 	}
+	
+	public boolean pathEquals(int[] path1, int[] path2) {
+		for(int i = 0; i<path1.length; i++) {
+			if(path1[i] != path2[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
