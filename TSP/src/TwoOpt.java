@@ -46,6 +46,10 @@ public class TwoOpt {
 			}
 		}
 		
+		if(firstImprovement == true) {
+			exchange(bestI, bestJ);
+		}
+		
 	}
 	
 	/**
