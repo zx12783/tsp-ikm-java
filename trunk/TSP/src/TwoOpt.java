@@ -45,16 +45,15 @@ public class TwoOpt {
 					break;
 				}
 			}
+			if(firstImprovement == true) {
+				exchange(bestI, bestJ);
+				break;
+			}
 			
 			if(bestI != Integer.MAX_VALUE && bestJ != Integer.MAX_VALUE) {
 				exchange(bestI, bestJ);
 			}
 		}
-		
-		if(firstImprovement == true) {
-			exchange(bestI, bestJ);
-		}
-		
 	}
 	
 	/**
@@ -119,9 +118,7 @@ public class TwoOpt {
 			i++;
 		}
 		
-		for(int j = 0; j < pathNew.length; j++) {
-			path[j] = pathNew[j];
-		}
+		path = pathNew.clone();
 		
 	}
 	

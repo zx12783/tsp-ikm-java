@@ -7,13 +7,13 @@ import java.util.Random;
 
 public class SimulatedAnnealing {
 	
-	private final int[][] distanceMatrix;
+	private final DistanceMatrix distanceMatrix;
 	private int[] path;
 	
 	private final Tool tool = new Tool();
 
 	
-	public SimulatedAnnealing(int[][] distanceMatrix) {
+	public SimulatedAnnealing(final DistanceMatrix distanceMatrix) {
 		this.distanceMatrix = distanceMatrix;
 	}
 
@@ -21,35 +21,44 @@ public class SimulatedAnnealing {
 		long start = System.nanoTime();
 		
 		double T = 100;
-		int[] current = new NearestNeighbor(distanceMatrix, 0).getPath();
+		int[] current = new NearestNeighbor(distanceMatrix.getDistanceMatrix(), 0).getPath();
+		System.out.println("Start Cost");
+		System.out.println(tool.computeCost(current, distanceMatrix.getDistanceMatrix()));
 		int[] best = current.clone();
+		int[] past = current.clone();
 		
-		while(T > 0.1 * Math.pow(10, -300)){
+		while(T > 0.1 * Math.pow(10, -300)){ 
+			System.out.println(T);
 			if (((System.nanoTime()) - start) * Math.pow(10, -9) > 180.0) {
 				break;
 			}
 			int i = 0;
 			while( i < 100) {
-				int[] next = new TwoOpt(current, distanceMatrix,true).getPath();
-				if(tool.pathEquals(next, current) == true) {
-					break;
+				
+				int[] next = new TwoOpt(current, distanceMatrix.getDistanceMatrix(),true).getPath();
+				
+				while(tool.pathEquals(next, past) == true) {
+					System.out.println("Avoid Cycle");
+					next = new TwoOpt(next, distanceMatrix.getDistanceMatrix(),true).getPath();
 				}
-				int deltaE = tool.computeCost(next, distanceMatrix) - tool.computeCost(current, distanceMatrix);
+				
+				int deltaE = tool.computeCost(next, distanceMatrix.getDistanceMatrix()) - tool.computeCost(current, distanceMatrix.getDistanceMatrix());
+				System.out.println("Delta E");
+				System.out.println(deltaE);
 				
 				if(deltaE < 0) {
-					System.out.println("HERE1");
-					current = next.clone();
-					if(tool.computeCost(next, distanceMatrix) < tool.computeCost(current, distanceMatrix)) {
-						if(tool.pathEquals(best, next) == true) {
-							break;
-						}
+					if(tool.computeCost(next, distanceMatrix.getDistanceMatrix()) < tool.computeCost(current, distanceMatrix.getDistanceMatrix())) {
+						System.out.println("UPDATE BEST");
 						best = next.clone();
 					}
+					past = current.clone();
+					current = next.clone();
+					
 				} else {
-					System.out.println("HERE2");
 					Random a = new Random();
 					int r = a.nextInt(1);
 					if(r < Math.exp(-deltaE/T)) {
+						past = current.clone();
 						current = next.clone();
 					}
 				}
@@ -58,7 +67,7 @@ public class SimulatedAnnealing {
 			T = 0.95 * T;
 		}
 		
-		path = new TwoOpt(best, distanceMatrix,false).getPath();
+		path = new TwoOpt(best, distanceMatrix.getDistanceMatrix(),false).getPath();
 		
 	}
 	
