@@ -1,3 +1,9 @@
+import java.util.ArrayList;
+
+/**
+ * Tool class
+ * @author Lucia Blondel
+ */
 
 public class Tool {
 
@@ -55,12 +61,42 @@ public class Tool {
 		return false;
 	}
 	
+	/**
+	 * @param path1
+	 * @param path2
+	 * @return true if path1 == path2; false otherwise
+	 */
 	public boolean pathEquals(int[] path1, int[] path2) {
 		for(int i = 0; i<path1.length; i++) {
 			if(path1[i] != path2[i]) {
 				return false;
 			}
 		}
+		return true;
+	}
+	
+	/**
+	 * @param path
+	 * @param cities
+	 * @return true if every city in cities is in the path (therefore in the path there is not a city
+	 * twice)
+	 */
+	public boolean isFeasible(int[] path, ArrayList<String> cities) {
+		int i = 0;
+		int[] nameOfCities = new int[path.length];
+		
+		for(String c: cities) {
+			String[] tokens = c.split(" ");
+			nameOfCities[i] = Integer.parseInt(tokens[0]) - 1;
+			i++;
+		}
+		
+		for(Integer name: nameOfCities) {
+			if(isCityInPath(path, name) == false) {
+				return false;
+			}
+		}
+		
 		return true;
 	}
 }

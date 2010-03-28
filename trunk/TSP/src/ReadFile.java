@@ -10,6 +10,10 @@ import java.util.Set;
 
 import com.sun.tools.javac.util.Position;
 
+/**
+ * Read file 
+ * @author Lucia Blondel
+ */
 
 public class ReadFile {
 	

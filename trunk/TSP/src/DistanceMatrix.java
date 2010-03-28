@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+/**
+ * Distance Matrix class
+ * @author Lucia Blondel
+ */
+
 public class DistanceMatrix {
 	
 	private int[][] distanceMatrix;
@@ -45,11 +50,24 @@ public class DistanceMatrix {
 	}
 	
 	/**
-	 * 
 	 * @return the matrix that contains all the distances between the cities
 	 */
 	public int[][] getDistanceMatrix() {
 		return distanceMatrix;
+	}
+	
+	/**
+	 * @return the array that contains all the X positions
+	 */
+	public double[] getPosX() {
+		return posX;
+	}
+	
+	/**
+	 * @return the array that contains all the X positions
+	 */
+	public double[] getPosY() {
+		return posY;
 	}
 	
 
