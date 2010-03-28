@@ -1,4 +1,9 @@
 
+/**
+ * TwoOpt class
+ * @author Lucia Blondel
+ */
+
 public class TwoOpt {
 
 	private int[] path;

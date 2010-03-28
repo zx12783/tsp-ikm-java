@@ -1,5 +1,9 @@
 import java.util.Random;
 
+/**
+ * Simulated annealing
+ * @author Lucia Blondel
+ */
 
 public class SimulatedAnnealing {
 	
@@ -24,11 +28,9 @@ public class SimulatedAnnealing {
 			if (((System.nanoTime()) - start) * Math.pow(10, -9) > 180.0) {
 				break;
 			}
-			System.out.println(T);
 			int i = 0;
-			while( i < 100) {
+			while( i < 400) {
 				int[] next = new TwoOpt(current, distanceMatrix,true).getPath();
-				System.out.println("computed next");
 				if(tool.pathEquals(next, current) == true) {
 					break;
 				}
