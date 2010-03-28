@@ -45,8 +45,11 @@ public class TwoOpt {
 					break;
 				}
 			}
+			
 			if(firstImprovement == true) {
-				exchange(bestI, bestJ);
+				if(bestI != Integer.MAX_VALUE && bestJ != Integer.MAX_VALUE) {
+					exchange(bestI, bestJ);
+				} 
 				break;
 			}
 			
