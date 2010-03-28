@@ -58,7 +58,7 @@ public class TSP {
 		System.out.println("Is the solution feasible");
 		System.out.println(tool.isFeasible(path, cities));
 		
-
+/**
 		JFrame f = new JFrame("TSP tour");	
 	    f.addWindowListener(new WindowAdapter() {
 	      public void windowClosing(WindowEvent e) {
@@ -72,6 +72,7 @@ public class TSP {
 	    f.pack();
 	    f.setSize(new Dimension(800, 800));
 	    f.setVisible(true);
+	    */
 	}
 	
 	
