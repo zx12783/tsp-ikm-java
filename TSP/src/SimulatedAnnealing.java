@@ -29,7 +29,7 @@ public class SimulatedAnnealing {
 				break;
 			}
 			int i = 0;
-			while( i < 400) {
+			while( i < 100) {
 				int[] next = new TwoOpt(current, distanceMatrix,true).getPath();
 				if(tool.pathEquals(next, current) == true) {
 					break;
