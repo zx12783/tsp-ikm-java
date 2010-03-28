@@ -32,7 +32,7 @@ public class TSP {
 		long start = System.nanoTime();
 		
 		// read all the cities and position of the cities from the file
-		ReadFile file = new ReadFile(pathOfData + "ch130.tsp");
+		ReadFile file = new ReadFile(pathOfData + "u1060.tsp");
 		cities = file.getCities();
 		
 		// build the matrix with the distances 
@@ -40,12 +40,12 @@ public class TSP {
 		distanceMatrix = d.getDistanceMatrix();
 		
 		//do simulated annealing
-		SimulatedAnnealing annealing = new SimulatedAnnealing(distanceMatrix);
+		SimulatedAnnealing annealing = new SimulatedAnnealing(d);
 		annealing.simulatedAnnealing();
 		
 		path = annealing.getPath();
 		cost = tool.computeCost(path, distanceMatrix);
-		
+
 		long end = System.nanoTime();
 		
 		System.out.println((end-start) * Math.pow(10, -9));
@@ -72,7 +72,7 @@ public class TSP {
 	    f.pack();
 	    f.setSize(new Dimension(800, 800));
 	    f.setVisible(true);
-	    */
+	*/
 	}
 	
 	
