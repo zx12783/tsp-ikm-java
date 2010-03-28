@@ -18,7 +18,7 @@ public class TSP {
 		long start = System.nanoTime();
 		
 		// read all the cities and position of the cities from the file
-		ReadFile file = new ReadFile(pathOfData + "eil76.tsp");
+		ReadFile file = new ReadFile(pathOfData + "rat783.tsp");
 		cities = file.getCities();
 		
 		// build the matrix with the distances 

@@ -14,28 +14,37 @@ public class SimulatedAnnealing {
 	}
 
 	public void simulatedAnnealing() {
+		long start = System.nanoTime();
 		
 		double T = 100;
 		int[] current = new NearestNeighbor(distanceMatrix, 0).getPath();
 		int[] best = current.clone();
 		
-		System.out.println(best);
-		
-		while(T > 0.1*Math.pow(10, -310)) {
+		while(T > 0.1 * Math.pow(10, -300)){
+			if (((System.nanoTime()) - start) * Math.pow(10, -9) > 180.0) {
+				break;
+			}
 			System.out.println(T);
 			int i = 0;
 			while( i < 100) {
-				
 				int[] next = new TwoOpt(current, distanceMatrix,true).getPath();
-				
+				System.out.println("computed next");
+				if(tool.pathEquals(next, current) == true) {
+					break;
+				}
 				int deltaE = tool.computeCost(next, distanceMatrix) - tool.computeCost(current, distanceMatrix);
 				
 				if(deltaE < 0) {
+					System.out.println("HERE1");
 					current = next.clone();
 					if(tool.computeCost(next, distanceMatrix) < tool.computeCost(current, distanceMatrix)) {
+						if(tool.pathEquals(best, next) == true) {
+							break;
+						}
 						best = next.clone();
 					}
 				} else {
+					System.out.println("HERE2");
 					Random a = new Random();
 					int r = a.nextInt(1);
 					if(r < Math.exp(-deltaE/T)) {
@@ -47,7 +56,7 @@ public class SimulatedAnnealing {
 			T = 0.95 * T;
 		}
 		
-		path = best.clone();
+		path = new TwoOpt(best, distanceMatrix,false).getPath();
 		
 	}
 	
