@@ -41,7 +41,7 @@ public class GUI extends JApplet{
 	    	g2.fillOval((int) X[i] * 5, (int) Y[i] * 5, 4, 4);
 	    }
 	    
-	    
+	
 	    for(int i = 0; i <= X.length - 2; i++) {
 	    	g2.setPaint(Color.black);
 	    	g2.draw(new Line2D.Double(X[i] * 5, Y[i] * 5, X[i+1] * 5, Y[i+1] * 5));
