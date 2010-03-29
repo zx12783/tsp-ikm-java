@@ -89,6 +89,8 @@ public class TwoOpt {
 	 * @param cityIndex1
 	 * @param cityIndex2
 	 */
+	
+	// BUG!
 	private void exchange(final int cityIndex1, final int cityIndex2) {
 		
 		int indexDest1 = tool.getIndexOfDestination(path, cityIndex1);

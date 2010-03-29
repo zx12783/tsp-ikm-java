@@ -32,7 +32,7 @@ public class TSP {
 		long start = System.nanoTime();
 		
 		// read all the cities and position of the cities from the file
-		ReadFile file = new ReadFile(pathOfData + "ch130.tsp");
+		ReadFile file = new ReadFile(pathOfData + "ch1302");
 		cities = file.getCities();
 		
 		// build the matrix with the distances 
@@ -57,24 +57,7 @@ public class TSP {
 		System.out.println(cost);
 		System.out.println("Is the solution feasible");
 		System.out.println(tool.isFeasible(path, cities));
-		
-		/*
-		double[] extrema = tool.findMaxXAndY(d);
 
-		JFrame f = new JFrame("TSP tour");	
-	    f.addWindowListener(new WindowAdapter() {
-	      public void windowClosing(WindowEvent e) {
-	        System.exit(0);
-	      }
-	    });
-	    JApplet applet = new GUI(path,d);
-	    f.setContentPane(new ScrollBar());
-	    f.getContentPane().add("Center", applet);
-	    applet.init();
-	    f.pack();
-	    f.setSize(new Dimension((int) extrema[0]*6, (int) extrema[1]*6));
-	    f.setVisible(true);
-*/
 	}
 	
 	
