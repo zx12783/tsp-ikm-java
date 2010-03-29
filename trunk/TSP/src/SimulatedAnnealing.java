@@ -26,7 +26,6 @@ public class SimulatedAnnealing {
 		System.out.println(tool.computeCost(current, distanceMatrix.getDistanceMatrix()));
 		int[] best = current.clone();
 		
-		
 		int counter = 0;
 		
 		while(T > 0.1 * Math.pow(10, -300) && counter < distanceMatrix.getNumberOfCities()/2){ 
@@ -40,9 +39,6 @@ public class SimulatedAnnealing {
 				int[] next = new TwoOpt(current, distanceMatrix.getDistanceMatrix(),true).getPath();
 				
 				int deltaE = tool.computeCost(next, distanceMatrix.getDistanceMatrix()) - tool.computeCost(current, distanceMatrix.getDistanceMatrix());
-				System.out.println("Delta E");
-				System.out.println(deltaE);
-				
 				if(deltaE < 0) {
 					if(tool.computeCost(next, distanceMatrix.getDistanceMatrix()) < tool.computeCost(current, distanceMatrix.getDistanceMatrix())) {
 						System.out.println("UPDATE BEST");
