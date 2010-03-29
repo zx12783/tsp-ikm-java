@@ -1,4 +1,7 @@
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Tool class
@@ -124,4 +127,13 @@ public class Tool {
 		return res;
 		
 	}
+	
+	public long getCurrentSeed(Random random) throws Exception {
+		   // Access private field to get the seed
+		   Field seedField = random.getClass().getDeclaredField("seed");
+		   seedField.setAccessible(true);
+		   AtomicLong seedFieldValue = (AtomicLong) seedField.get(random);
+		   // Unperturb the seed from the magic multiplier
+		   return seedFieldValue.get() ^ 0x5DEECE66DL;	
+		}
 }

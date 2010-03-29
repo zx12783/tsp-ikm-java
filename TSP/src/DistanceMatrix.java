@@ -44,7 +44,7 @@ public class DistanceMatrix {
 		 */
 		for(int j = 0; j<nameOfCities.length; j++) {
 			for(int k = 0; k<nameOfCities.length; k++) {
-				distanceMatrix[j][k] = (int) Math.floor(Math.sqrt(Math.pow(posX[j] - posX[k], 2) + Math.pow(posY[j] - posY[k], 2)));
+				distanceMatrix[j][k] = (int) Math.round(Math.sqrt(Math.pow(posX[j] - posX[k], 2) + Math.pow(posY[j] - posY[k], 2)));
 			}
 		}
 	}

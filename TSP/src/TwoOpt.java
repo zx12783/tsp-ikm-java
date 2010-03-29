@@ -29,28 +29,23 @@ public class TwoOpt {
 		
 
 		while(bestGain > 0) {
-
-			System.out.println("best gain *******");
-			System.out.println(bestGain);
-			
 			bestGain = 0;
+			
 
-			for(int i = 0; i < path.length; i++) {
-				for(int j = 0; j < path.length; j++) {
+			for(int i = 0; i < path.length - 1; i++) {
+				for(int j = i+1; j < path.length; j++) {
 					if(i!=j) {
 						int gain = computeGain(i, j);
-						//System.out.println("Gain");
-					//	System.out.println(gain);
 						if(gain < bestGain) {
-							//System.out.println("LOOOOOOOOOOOOOOOOOOL");
 							bestGain = gain;
-							//System.out.println("best gain");
-						//	System.out.println(bestGain);
 							bestI = i;
 							bestJ = j;
 							if(firstImprovement) {
 								break;
+							} else {
+								exchange(bestI, bestJ);
 							}
+							
 						}
 					}
 				}
@@ -73,15 +68,16 @@ public class TwoOpt {
 	 * @param cityIndex2
 	 * @return the gain of the change
 	 */
-	private int computeGain(final int cityIndex1, final int cityIndex2) {
+	public int computeGain(final int cityIndex1, final int cityIndex2) {
 		
 		int src1 = path[cityIndex1];
 		int src2 = path[cityIndex2];
 		
-		int dest1 = tool.getDestination(path, cityIndex1);
-		int dest2 = tool.getDestination(path, cityIndex2);;
 		
-		return ((distanceMatrix[dest1][dest2] + distanceMatrix[src1][src2]) - (distanceMatrix[src1][dest1] + distanceMatrix[src2][dest2]));
+		int dest1 = tool.getDestination(path, cityIndex1);
+		int dest2 = tool.getDestination(path, cityIndex2);
+		
+		return ((distanceMatrix[src1][src2] + distanceMatrix[dest1][dest2]) - (distanceMatrix[src1][dest1] + distanceMatrix[src2][dest2]));
 	}
 	
 	/**
@@ -91,7 +87,7 @@ public class TwoOpt {
 	 * @param cityIndex1
 	 * @param cityIndex2
 	 */
-	private void exchange(final int cityIndex1, final int cityIndex2) {
+	public void exchange(final int cityIndex1, final int cityIndex2) {
 		
 		int indexDest1 = tool.getIndexOfDestination(path, cityIndex1);
 		int indexDest2 = tool.getIndexOfDestination(path, cityIndex2);
@@ -138,6 +134,10 @@ public class TwoOpt {
 	 */
 	public int[] getPath() {
 		return path;
+	}
+	
+	public void setPath(final int[] path) {
+		this.path = path;
 	}
 	                                          
 }

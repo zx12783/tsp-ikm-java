@@ -11,6 +11,7 @@ public class SimulatedAnnealing {
 	private final DistanceMatrix distanceMatrix;
 	private int[] path;
 	private Random r;
+	private long seed;
 	private TwoOpt twoOpt;
 	
 	private final Tool tool = new Tool();
@@ -19,50 +20,69 @@ public class SimulatedAnnealing {
 	public SimulatedAnnealing(final DistanceMatrix distanceMatrix) {
 		this.distanceMatrix = distanceMatrix;
 		r = new Random();
+		try {
+			seed = tool.getCurrentSeed(r);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		twoOpt = new TwoOpt(distanceMatrix.getDistanceMatrix());
 	}
 
 	public void simulatedAnnealing() {
 		long start = System.nanoTime();
 		
-		double T = 100;
+		double T = 10;
 		int[] current = new NearestNeighbor(distanceMatrix.getDistanceMatrix(), 0).getPath();
-		System.out.println("Start Cost");
-		System.out.println(tool.computeCost(current, distanceMatrix.getDistanceMatrix()));
+		twoOpt.setPath(current);
+	
 		int[] best = current.clone();
+		int bestCost = tool.computeCost(best, distanceMatrix.getDistanceMatrix());
+		int currentCost = bestCost;
+				
+		System.out.println("Start Cost");
+		System.out.println(currentCost);
 		
-		int counter = 0;
-		
-		while(T > 1){ // && counter < distanceMatrix.getNumberOfCities()/2 0.1 * Math.pow(10, -300)
-			System.out.println(T);
+		while(T > 0.0001){
+			System.out.println(T + " " + bestCost + " " + currentCost);
 			if (((System.nanoTime()) - start) * Math.pow(10, -9) > 180.0) {
 				break;
 			}
 			int i = 0;
-			while( i < 200) {
+			while( i < 50 * current.length) {
 				
-				twoOpt.twoOpt(current, true);
-				int[] next = twoOpt.getPath();
+				int rI = r.nextInt(current.length);
+				int rJ = r.nextInt(current.length);
 				
-				int deltaE = tool.computeCost(next, distanceMatrix.getDistanceMatrix()) - tool.computeCost(current, distanceMatrix.getDistanceMatrix());
+				if(rI == rJ) {
+					rJ = (rJ+1) % current.length;
+				}
 				
-				if(deltaE < 0) {
-					if(tool.computeCost(next, distanceMatrix.getDistanceMatrix()) < tool.computeCost(best, distanceMatrix.getDistanceMatrix())) {
-						System.out.println("UPDATE BEST");
-						best = next.clone();
+				if(rJ < rI) {
+					int temp = rJ;
+					rJ = rI;
+					rI = temp;
+				}
+				int delta = twoOpt.computeGain(rI, rJ);
+				
+				
+				if(delta < 0) {
+					twoOpt.exchange(rI, rJ);
+					currentCost = tool.computeCost(current, distanceMatrix.getDistanceMatrix());
+					if(currentCost < bestCost) {
+							System.out.println("UPDATE BEST");
+							best = (twoOpt.getPath()).clone();
+							bestCost = currentCost;
 					}
-					current = next.clone();
-					
 				} else {
-					int a = r.nextInt(1);
-					if(a < Math.exp(-deltaE/T)) {
-						current = next.clone();
+					double a = r.nextInt(101)/100.0;
+					if(a < Math.exp(-delta/T)) {
+						twoOpt.exchange(rI, rJ);
+						currentCost = tool.computeCost(current, distanceMatrix.getDistanceMatrix());
 					}
 				}
 				i++;
 			}
-			T = 0.95 * T;
-			//counter++;
+			T = 0.995 * T;
 		}
 		
 		twoOpt.twoOpt(best, false);
@@ -73,5 +93,9 @@ public class SimulatedAnnealing {
 	
 	public int[] getPath() {
 		return path;
+	}
+	
+	public long getCurrentSeed() {
+		return seed;
 	}
 }
