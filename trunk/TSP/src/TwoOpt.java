@@ -28,33 +28,35 @@ public class TwoOpt {
 		int bestJ = Integer.MAX_VALUE;
 		
 
-		while(bestGain >= 0) {
+		while(bestGain > 0) {
+
+			System.out.println("best gain *******");
 			System.out.println(bestGain);
+			
 			bestGain = 0;
+
 			for(int i = 0; i < path.length; i++) {
 				for(int j = 0; j < path.length; j++) {
 					if(i!=j) {
 						int gain = computeGain(i, j);
+						//System.out.println("Gain");
+					//	System.out.println(gain);
 						if(gain < bestGain) {
+							//System.out.println("LOOOOOOOOOOOOOOOOOOL");
 							bestGain = gain;
+							//System.out.println("best gain");
+						//	System.out.println(bestGain);
 							bestI = i;
 							bestJ = j;
-							if(firstImprovement == true) {
+							if(firstImprovement) {
 								break;
 							}
 						}
 					}
 				}
-				if(bestGain < 0 && firstImprovement == true) {
+				if(firstImprovement) {
 					break;
 				}
-			}
-			
-			if(firstImprovement == true) {
-				if(bestI != Integer.MAX_VALUE && bestJ != Integer.MAX_VALUE) {
-					exchange(bestI, bestJ);
-				} 
-				break;
 			}
 			
 			if(bestI != Integer.MAX_VALUE && bestJ != Integer.MAX_VALUE) {
@@ -89,8 +91,6 @@ public class TwoOpt {
 	 * @param cityIndex1
 	 * @param cityIndex2
 	 */
-	
-	// BUG!
 	private void exchange(final int cityIndex1, final int cityIndex2) {
 		
 		int indexDest1 = tool.getIndexOfDestination(path, cityIndex1);
@@ -127,7 +127,9 @@ public class TwoOpt {
 			i++;
 		}
 		
-		path = pathNew.clone();
+		for(int k = 0; k < pathNew.length; k++) {
+			path[k] = pathNew[k];
+		}
 		
 	}
 	

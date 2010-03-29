@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -61,10 +62,10 @@ public class SimulatedAnnealing {
 				i++;
 			}
 			T = 0.95 * T;
-			counter++;
+			//counter++;
 		}
 		
-		twoOpt.twoOpt(best, true);
+		twoOpt.twoOpt(best, false);
 		
 		path = twoOpt.getPath();
 		
