@@ -11,13 +11,16 @@ public class TwoOpt {
 	
 	private Tool tool = new Tool();
 	
+	public TwoOpt(int[][] distanceMatrix) {
+		this.distanceMatrix = distanceMatrix;
+	}
+	
 	/**
 	 * Constructor of a path that it's better (in cost-sense) than the given one
 	 * @param path
 	 * @param distanceMatrix
 	 */
-	public TwoOpt(int[] path, int[][] distanceMatrix, final boolean firstImprovement) {
-		this.distanceMatrix = distanceMatrix;
+	public void twoOpt(int[] path, final boolean firstImprovement) {
 		this.path = path;
 		
 		int bestGain = Integer.MAX_VALUE;
@@ -26,6 +29,7 @@ public class TwoOpt {
 		
 
 		while(bestGain >= 0) {
+			System.out.println(bestGain);
 			bestGain = 0;
 			for(int i = 0; i < path.length; i++) {
 				for(int j = 0; j < path.length; j++) {
