@@ -32,7 +32,7 @@ public class TSP {
 		long start = System.nanoTime();
 		
 		// read all the cities and position of the cities from the file
-		ReadFile file = new ReadFile(pathOfData + "u1060.tsp");
+		ReadFile file = new ReadFile(pathOfData + "rat783.tsp");
 		cities = file.getCities();
 		
 		// build the matrix with the distances 
@@ -49,10 +49,13 @@ public class TSP {
 		long end = System.nanoTime();
 		
 		System.out.println((end-start) * Math.pow(10, -9));
+		
 		System.out.println("After Simulated Annealing");
 		for(int i = 0; i < path.length; i++) {
 			System.out.println(path[i]);
 		}
+		System.out.println("Seed");
+		System.out.println(annealing.getCurrentSeed());
 		System.out.println("Cost of the solution");
 		System.out.println(cost);
 		System.out.println("Is the solution feasible");
