@@ -31,7 +31,7 @@ public class SimulatedAnnealing {
 	public void simulatedAnnealing() {
 		long start = System.nanoTime();
 		
-		double T = 10;
+		double T = 0.2;
 		int[] current = new NearestNeighbor(distanceMatrix.getDistanceMatrix(), 0).getPath();
 		twoOpt.setPath(current);
 	
@@ -48,7 +48,7 @@ public class SimulatedAnnealing {
 				break;
 			}
 			int i = 0;
-			while( i < 50 * current.length) {
+			while( i < 50*current.length) {
 				
 				int rI = r.nextInt(current.length);
 				int rJ = r.nextInt(current.length);
@@ -82,7 +82,7 @@ public class SimulatedAnnealing {
 				}
 				i++;
 			}
-			T = 0.995 * T;
+			T = 0.95* T;
 		}
 		
 		twoOpt.twoOpt(best, false);
