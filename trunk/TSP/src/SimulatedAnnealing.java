@@ -14,12 +14,15 @@ public class SimulatedAnnealing {
 	private long seed;
 	private TwoOpt twoOpt;
 	
+	private String nameOfMap;
+	
 	private final Tool tool = new Tool();
 
 	
-	public SimulatedAnnealing(final DistanceMatrix distanceMatrix) {
+	public SimulatedAnnealing(final DistanceMatrix distanceMatrix, final String nameOfMap) {
+		this.nameOfMap = nameOfMap;
 		this.distanceMatrix = distanceMatrix;
-		r = new Random();
+		r = new Random(TSP.maps.get(nameOfMap).getSeed());
 		try {
 			seed = tool.getCurrentSeed(r);
 		} catch (Exception e) {
@@ -31,7 +34,9 @@ public class SimulatedAnnealing {
 	public void simulatedAnnealing() {
 		long start = System.nanoTime();
 		
-		double T = 0.2;
+		double T = TSP.maps.get(nameOfMap).getStartTemperature();
+		double alpha = TSP.maps.get(nameOfMap).getAlpha();
+		
 		int[] current = new NearestNeighbor(distanceMatrix.getDistanceMatrix(), 0).getPath();
 		twoOpt.setPath(current);
 	
@@ -42,7 +47,7 @@ public class SimulatedAnnealing {
 		System.out.println("Start Cost");
 		System.out.println(currentCost);
 		
-		while(T > 0.0001){
+		while(true){
 			System.out.println(T + " " + bestCost + " " + currentCost);
 			if (((System.nanoTime()) - start) * Math.pow(10, -9) > 180.0) {
 				break;
@@ -82,7 +87,7 @@ public class SimulatedAnnealing {
 				}
 				i++;
 			}
-			T = 0.95* T;
+			T = alpha * T;
 		}
 		
 		twoOpt.twoOpt(best, false);
