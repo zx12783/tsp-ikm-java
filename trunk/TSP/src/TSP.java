@@ -1,17 +1,5 @@
-import java.awt.Dimension;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.JApplet;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-
-import sun.rmi.runtime.NewThreadAction;
 
 /**
  * Main class of the project
@@ -41,7 +29,6 @@ public class TSP {
 	private static Map pr439 = new Map(179780899710462l, 5, 0.99);
 	private static Map rat783 = new Map(160900147239462l, 0.1, 0.995);
 	private static Map u1060 = new Map(161821912575462l, 0.5, 0.99);
-
 
 	
 	public static void main (String[] args) {	
@@ -78,21 +65,25 @@ public class TSP {
 
 		long end = System.nanoTime();
 		
+		// print out some informations
 		System.out.println("Time needed");
 		System.out.println((end-start) * Math.pow(10, -9));
 		
 		System.out.println("Path");
 		String pathString = "[";
 		for(int i = 0; i < path.length; i++) {
-			pathString += path[i] + "; ";
+			pathString += (path[i]+1) + "; ";
 		}
 		pathString += "]";
 		System.out.println(pathString);
 		System.out.println("Cost of the solution");
 		System.out.println(cost);
-		System.out.println("Is the solution feasible");
-		System.out.println(tool.isFeasible(path, cities));
-
+		System.out.println("Is the solution feasible?");
+		if (tool.isFeasible(path, cities)) {
+			System.out.println("yes");
+		} else {
+			System.out.println("no");
+		}
 	}
 	
 	

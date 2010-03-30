@@ -5,10 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-
-import com.sun.tools.javac.util.Position;
 
 /**
  * Read file 
@@ -44,20 +40,17 @@ public class ReadFile {
 			dataInput = new DataInputStream(buffer);
 			String line = dataInput.readLine();
 			
-			/**
-			 * until we don't reach the NODE_COORD_SECTION we skip 
-			 * the informations that are written in the line
-			 */
+			// until we don't reach the NODE_COORD_SECTION we skip 
+			// the informations that are written in the line
+
 			while (line.equals("NODE_COORD_SECTION") != true) {
 				line = dataInput.readLine();
 			}
 			
 			line = dataInput.readLine();
 			
-			/**
-			 * until we don't reach the end of file we save all the lines
-			 * into our ArrayList<String> cities
-			 */
+			// until we don't reach the end of file we save all the lines
+			// into our ArrayList<String> cities
 			while (line.equals("EOF") != true) {
 				
 				try {

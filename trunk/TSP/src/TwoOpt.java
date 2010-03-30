@@ -11,6 +11,10 @@ public class TwoOpt {
 	
 	private Tool tool = new Tool();
 	
+	/**
+	 * Constructor
+	 * @param matrix that contains the distances between every cities 
+	 */
 	public TwoOpt(int[][] distanceMatrix) {
 		this.distanceMatrix = distanceMatrix;
 	}
@@ -26,26 +30,24 @@ public class TwoOpt {
 		int bestGain = Integer.MAX_VALUE;
 		int bestI = Integer.MAX_VALUE;
 		int bestJ = Integer.MAX_VALUE;
-		
 
 		while(bestGain > 0) {
 			bestGain = 0;
-			
-
+			// since we want j to be greater than i then we choose the index:
+			// - 0 <= i < length of path - 1
+			// - i+1 <= j < length of path
 			for(int i = 0; i < path.length - 1; i++) {
 				for(int j = i+1; j < path.length; j++) {
 					if(i!=j) {
 						int gain = computeGain(i, j);
+						// if we find a good gain we set all the value 
 						if(gain < bestGain) {
 							bestGain = gain;
 							bestI = i;
 							bestJ = j;
 							if(firstImprovement) {
 								break;
-							} else {
-								exchange(bestI, bestJ);
 							}
-							
 						}
 					}
 				}
@@ -53,7 +55,7 @@ public class TwoOpt {
 					break;
 				}
 			}
-			
+			// exchange bestI and bestJ
 			if(bestI != Integer.MAX_VALUE && bestJ != Integer.MAX_VALUE) {
 				exchange(bestI, bestJ);
 			}
@@ -73,7 +75,6 @@ public class TwoOpt {
 		int src1 = path[cityIndex1];
 		int src2 = path[cityIndex2];
 		
-		
 		int dest1 = tool.getDestination(path, cityIndex1);
 		int dest2 = tool.getDestination(path, cityIndex2);
 		
@@ -92,10 +93,10 @@ public class TwoOpt {
 		int indexDest1 = tool.getIndexOfDestination(path, cityIndex1);
 		int indexDest2 = tool.getIndexOfDestination(path, cityIndex2);
 
-		
 		int[] pathNew = new int[path.length];
 		int indexOfPathNew = 0;
 		
+		// construct the new path
 		int i = 0;
 		while(i <= cityIndex1) {
 			if(tool.isCityInPath(pathNew, path[i]) == false) {
@@ -123,6 +124,7 @@ public class TwoOpt {
 			i++;
 		}
 		
+		// copy the new path into the old one
 		for(int k = 0; k < pathNew.length; k++) {
 			path[k] = pathNew[k];
 		}
@@ -136,6 +138,9 @@ public class TwoOpt {
 		return path;
 	}
 	
+	/**
+	 * @param set the path
+	 */
 	public void setPath(final int[] path) {
 		this.path = path;
 	}
