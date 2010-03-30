@@ -67,7 +67,7 @@ public class TSP {
 		
 		// print out some informations
 		System.out.println("Time needed");
-		System.out.println((end-start) * Math.pow(10, -9));
+		System.out.println(Math.floor((end-start) * Math.pow(10, -9)));
 		
 		System.out.println("Path");
 		String pathString = "[";
