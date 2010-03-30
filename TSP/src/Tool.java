@@ -104,30 +104,12 @@ public class Tool {
 		return true;
 	}
 	
-	public double[] findMaxXAndY(DistanceMatrix distanceMatrix) {
-		double[] X = distanceMatrix.getPosX();
-		double[] Y = distanceMatrix.getPosY();
-		
-		double maxX = 0.0;
-		double maxY = 0.0;
-		
-		for(int i = 0; i < X.length; i++) {
-			if(X[i] > maxX) {
-				maxX = X[i];
-			}
-			if(Y[i] > maxY) {
-				maxY = Y[i];
-			}
-		}
-		
-		double[] res = new double[2];
-		res[0] = maxX;
-		res[1] = maxY;
-		
-		return res;
-		
-	}
-	
+	/**
+	 * Thanks to Fabio Rambone 
+	 * @param random
+	 * @return the seed of the random that we pass to this function
+	 * @throws Exception
+	 */
 	public long getCurrentSeed(Random random) throws Exception {
 		   // Access private field to get the seed
 		   Field seedField = random.getClass().getDeclaredField("seed");

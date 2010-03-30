@@ -69,7 +69,9 @@ public class DistanceMatrix {
 	public double[] getPosY() {
 		return posY;
 	}
-	
+	/**
+	 * @return the number of cities of this path
+	 */
 	public int getNumberOfCities(){
 		return nameOfCities.length;
 	}
