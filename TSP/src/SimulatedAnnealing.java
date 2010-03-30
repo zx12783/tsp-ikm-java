@@ -43,12 +43,10 @@ public class SimulatedAnnealing {
 		int[] best = current.clone();
 		int bestCost = tool.computeCost(best, distanceMatrix.getDistanceMatrix());
 		int currentCost = bestCost;
-				
-		System.out.println("Start Cost");
-		System.out.println(currentCost);
+		
 		
 		while(true){
-			System.out.println(T + " " + bestCost + " " + currentCost);
+			//System.out.println(T + " " + bestCost + " " + currentCost);
 			if (((System.nanoTime()) - start) * Math.pow(10, -9) > 180.0) {
 				break;
 			}
@@ -74,7 +72,6 @@ public class SimulatedAnnealing {
 					twoOpt.exchange(rI, rJ);
 					currentCost = tool.computeCost(current, distanceMatrix.getDistanceMatrix());
 					if(currentCost < bestCost) {
-							System.out.println("UPDATE BEST");
 							best = (twoOpt.getPath()).clone();
 							bestCost = currentCost;
 					}
@@ -91,7 +88,7 @@ public class SimulatedAnnealing {
 		}
 		
 		twoOpt.twoOpt(best, false);
-		
+
 		path = twoOpt.getPath();
 		
 	}

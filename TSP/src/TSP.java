@@ -78,14 +78,16 @@ public class TSP {
 
 		long end = System.nanoTime();
 		
+		System.out.println("Time needed");
 		System.out.println((end-start) * Math.pow(10, -9));
 		
-		System.out.println("After Simulated Annealing");
+		System.out.println("Path");
+		String pathString = "[";
 		for(int i = 0; i < path.length; i++) {
-			System.out.println(path[i]);
+			pathString += path[i] + "; ";
 		}
-		System.out.println("Seed");
-		System.out.println(annealing.getCurrentSeed());
+		pathString += "]";
+		System.out.println(pathString);
 		System.out.println("Cost of the solution");
 		System.out.println(cost);
 		System.out.println("Is the solution feasible");
