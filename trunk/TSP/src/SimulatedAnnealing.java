@@ -39,15 +39,20 @@ public class SimulatedAnnealing {
 		// compute the nearest neighbour and set the path to be the initial path
 		int[] current = new NearestNeighbor(distanceMatrix.getDistanceMatrix(), 0).getPath();
 		twoOpt.setPath(current);
+		
 		// set the best path as the current one
-		int[] best = current.clone();
+		int[] best = new int[current.length];
+		for(int j = 0; j < current.length; j++) {
+			best[j] = current[j];
+		}
+		 // current.clone();
 		// set the current cost and the best cost
-		int bestCost = tool.computeCost(best, distanceMatrix.getDistanceMatrix());
+		int bestCost = tool.computeCost(current, distanceMatrix.getDistanceMatrix());
 		int currentCost = bestCost;
 		
 		// until we have time
 		while(true){
-			//System.out.println(T + " " + bestCost + " " + currentCost);
+			System.out.println(T + " " + bestCost + " " + currentCost);
 			
 			// if we haven't run out of time
 			if (((System.nanoTime()) - start) * Math.pow(10, -9) > 180.0) {
@@ -56,7 +61,7 @@ public class SimulatedAnnealing {
 			// initialize i
 			int i = 0;
 			// until we are not at equilibrium for this temperature
-			while( i < 50*current.length) {
+			while( i < 50*current.length) { // 50*
 				// generate random two indices
 				int rI = r.nextInt(current.length);
 				int rJ = r.nextInt(current.length);
@@ -79,7 +84,10 @@ public class SimulatedAnnealing {
 					currentCost = tool.computeCost(current, distanceMatrix.getDistanceMatrix());
 					// if the current cost is less than the best, reset the best cost
 					if(currentCost < bestCost) {
-							best = (twoOpt.getPath()).clone();
+							int[] temp = twoOpt.getPath();
+							for (int j = 0; j < temp.length; j++) {
+								best[j] = temp[j];
+							}
 							bestCost = currentCost;
 					}
 					// otherwise choose "random" between the current and the next solutions
@@ -96,8 +104,11 @@ public class SimulatedAnnealing {
 			// decrease the temperature
 			T = alpha * T;
 		}
+
 		// compute a twoOpt without first improvement
 		twoOpt.twoOpt(best, false);
+	
+				
 		// get the path
 		path = twoOpt.getPath();
 		

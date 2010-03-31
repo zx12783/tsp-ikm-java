@@ -37,7 +37,7 @@ public class TwoOpt {
 			// - 0 <= i < length of path - 1
 			// - i+1 <= j < length of path
 			for(int i = 0; i < path.length - 1; i++) {
-				for(int j = i+1; j < path.length; j++) {
+				for(int j = i+1; j < path.length; j++) { // i+1
 					if(i!=j) {
 						int gain = computeGain(i, j);
 						// if we find a good gain we set all the value 
@@ -45,18 +45,20 @@ public class TwoOpt {
 							bestGain = gain;
 							bestI = i;
 							bestJ = j;
-							if(firstImprovement) {
+							if(firstImprovement == true) {
 								break;
-							}
+							} 
+							// exchange bestI and bestJ
+							exchange(bestI, bestJ);
 						}
 					}
 				}
-				if(firstImprovement) {
+				if(firstImprovement == true) {
 					break;
 				}
 			}
 			// exchange bestI and bestJ
-			if(bestI != Integer.MAX_VALUE && bestJ != Integer.MAX_VALUE) {
+			if(firstImprovement == true && bestI != Integer.MAX_VALUE && bestJ != Integer.MAX_VALUE) {
 				exchange(bestI, bestJ);
 			}
 		}
