@@ -67,7 +67,7 @@ public class SimulatedAnnealing {
 			// initialize i
 			int i = 0;
 			// until we are not at equilibrium for this temperature
-			while( i < 50*current.length) { // 50*
+			while( i < 50*current.length) {
 				// generate random two indices
 				int rI = r.nextInt(current.length);
 				int rJ = r.nextInt(current.length);
