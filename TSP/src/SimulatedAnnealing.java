@@ -36,9 +36,15 @@ public class SimulatedAnnealing {
 		// store the initial values
 		double T = TSP.maps.get(nameOfMap).getStartTemperature();
 		double alpha = TSP.maps.get(nameOfMap).getAlpha();
+		boolean initialTwoOpt = TSP.maps.get(nameOfMap).getTwoOptInitial();
+		
 		// compute the nearest neighbour and set the path to be the initial path
 		int[] current = new NearestNeighbor(distanceMatrix.getDistanceMatrix(), 0).getPath();
 		twoOpt.setPath(current);
+		
+		if(initialTwoOpt) {
+			twoOpt.twoOpt(current, false);
+		}
 		
 		// set the best path as the current one
 		int[] best = new int[current.length];

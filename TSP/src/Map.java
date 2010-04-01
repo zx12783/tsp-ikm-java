@@ -8,6 +8,7 @@ public class Map {
 	private long seed;
 	private double startTemperature;
 	private double alpha;
+	private boolean twoOptInitial;
 	
 	/**
 	 * Constructor
@@ -15,10 +16,11 @@ public class Map {
 	 * @param start temperature
 	 * @param alpha
 	 */
-	public Map(final long seed, final double startTemperature, final double alpha) {
+	public Map(final long seed, final double startTemperature, final double alpha, final boolean twoOptInitial) {
 		this.seed = seed;
 		this.startTemperature = startTemperature;
 		this.alpha = alpha;
+		this.twoOptInitial = twoOptInitial;
 	}
 	
 	/**
@@ -41,5 +43,12 @@ public class Map {
 	 */
 	public double getAlpha() {
 		return alpha;
+	}
+	
+	/**
+	 * @return true or false
+	 */
+	public boolean getTwoOptInitial() {
+		return twoOptInitial;
 	}
 }
