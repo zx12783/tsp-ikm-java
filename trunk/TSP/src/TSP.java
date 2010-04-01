@@ -23,12 +23,12 @@ public class TSP {
 	private static Map d198 = new Map(170240126344462l,1, 0.999, true); 
 	private static Map eil76 = new Map(165144750863462l, 10, 0.999, true); 
 	private static Map fl1577 = new Map(179142946891462l, 0.1, 0.95, false); 
-	private static Map kroA100 = new Map(175595919652462l, 1, 0.999, false);
+	private static Map kroA100 = new Map(175595919652462l, 0.5, 0.9999, false); 
 	private static Map lin318 = new Map(170527939861462l, 1, 0.999, false);
-	private static Map pcb442 = new Map(179566124364462l, 1, 0.999, false);
-	private static Map pr439 = new Map(179780899710462l, 0.2, 0.999, false); // old T 1
-	private static Map rat783 = new Map(160900147239462l, 0.1, 0.995, false);
-	private static Map u1060 = new Map(161821912575462l, 0.5, 0.99, false);
+	private static Map pcb442 = new Map(179566124364462l, 0.5, 0.999, true);
+	private static Map pr439 = new Map(179780899710462l, 0.5, 0.9999, true); 
+	private static Map rat783 = new Map(160900147239462l, 0.1, 0.995, true);
+	private static Map u1060 = new Map(161821912575462l, 0.5, 0.99, true);
 
 	
 	public static void main (String[] args) {	
